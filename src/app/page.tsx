@@ -1,9 +1,17 @@
-import Image from 'next/image'
+import { options } from "./api/auth/[...nextauth]/options"
+import { getServerSession } from "next-auth/next"
+import UserCard from "./components/UserCard"
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession(options)
+
   return (
-    <main className='my-56'>
-      <h1 className='text-center text-5xl capitalize font-semibold'>Hello, this is nextjs 13 boilerplate</h1>
-    </main>
+    <>
+      {session ? (
+        <UserCard user={session?.user} pagetype={"Home"} />
+      ) : (
+        <h1 className="text-5xl">You Shall Not Pass!</h1>
+      )}
+    </>
   )
 }
