@@ -1,15 +1,16 @@
 import '@/shared/styles/app.css'
 import '@/shared/styles/main.css'
 
-import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Navbar from './components/Navbar'
+import AuthProvider from './context/AuthProvider'
 import Head from 'next/head'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'Next 13',
-  description: 'Boilerplate Next js 13',
+export const metadata = {
+  title: 'NextAuth',
+  description: 'Learn NextAuth.js by Dave Gray',
 }
 
 export default function RootLayout({
@@ -27,7 +28,16 @@ export default function RootLayout({
           type="image/x-icon"
         />
       </Head>
-      <body className={inter.className}>{children}</body>
+
+      <body className={inter.className}>
+        <AuthProvider>
+          <Navbar />
+          <main className="flex justify-center items-start p-6 min-h-screen">
+            {children}
+          </main>
+        </AuthProvider>
+      </body>
     </html>
   )
 }
+
